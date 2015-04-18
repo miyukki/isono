@@ -1,0 +1,112 @@
+%html{ lang: 'en' }
+  %head
+    %meta{:name => "viewport", :content => "width=device-width, initial-scale=1, maximum-scale=1"}
+    %script{ src: 'http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js' }
+    -# %title= content_for?(:title) ? yield(:title) : "App_Name"
+    -# %meta{:content => content_for?(:description) ? yield(:description) : "App_Name", :name => "description"}
+
+    -#= yield(:css)
+    -# = stylesheet_link_tag :application, :media => "all"
+    -# = stylesheet_link_tag '//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css'
+    -#
+    -# = javascript_include_tag :application
+    -# = yield(:script)
+    -#
+    -# = csrf_meta_tags
+    -# = yield(:head)
+    :sass
+      $font_size: 16px
+
+      body
+        margin: 0
+        font-size: $font_size
+
+      .btn
+        color: #222
+        background-color: #E9E9E9
+        border-color: #A7A7A7
+        border-bottom-width: 2px
+        text-shadow: none
+        border-radius: 4px
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2)
+        text-align: center
+        cursor: pointer
+        border: 1px solid rgba(0, 0, 0, 0)
+        white-space: nowrap
+        padding: 8px 12px
+        font-size: $font_size
+
+      .top
+        background-color: #1FA67A
+        border-bottom: 1px solid #1B926C
+
+        .inner
+          margin: 0 auto
+          height: 300px
+          width: 960px
+
+        h1
+          font-size: 46px
+          color: white
+          text-align: center
+          line-height: 300px
+
+      .nav
+        $nav_height: 80px
+
+        height: $nav_height
+        background-color: #F5F5F5
+        border-bottom: 1px solid #EEE
+        text-align: center
+        color: #444
+
+        .inner
+          display: inline-block
+          position: relative
+          line-height: 90px
+
+        .hint
+          position: absolute
+          top: -30px
+          left: -100px
+          font-size: 12px
+          color: #888
+
+        input[type=text]
+          text-align: center
+          padding: 6px
+          background: white
+          border: 2px solid #EEE
+          border-radius: 3px
+          height: 36px
+          font-size: $font_size
+
+      .content
+        padding: 20px
+
+        .twitter-frame
+          text-align: center
+  %body
+    .top
+      .inner
+        %h1= "おーい磯野！#{@purpose}しようぜ！"
+    .nav
+      .inner
+        .hint
+          磯野と他の遊び方をする
+        おーい磯野！
+        %input.js-purpose{ type: :text }
+        %a.btn.js-siyouze しようぜ！
+
+    .content
+      .twitter-frame
+        %a.twitter-timeline{ href: "https://twitter.com/search?q=#{@purpose}", data: { widget: { id: 589305165729017857 } } }
+          = "おーい磯野！#{@purpose}しようぜ！に関するツイート"
+        :javascript
+          !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");
+
+:javascript
+  $('.js-siyouze').click(function() {
+    var purpose = $('.js-purpose').val()
+    location.href = "http://おーい磯野."+ purpose +".lvh.me:4567/"
+  })
