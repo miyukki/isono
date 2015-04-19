@@ -2,7 +2,7 @@
   %head
     %meta{:name => "viewport", :content => "width=device-width, initial-scale=1, maximum-scale=1"}
     %script{ src: 'http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js' }
-    -# %title= content_for?(:title) ? yield(:title) : "App_Name"
+    %title= @title
     -# %meta{:content => content_for?(:description) ? yield(:description) : "App_Name", :name => "description"}
 
     -#= yield(:css)
@@ -89,24 +89,24 @@
   %body
     .top
       .inner
-        %h1= "おーい磯野！#{@purpose}しようぜ！"
+        %h1= @title
     .nav
       .inner
         .hint
           磯野と他の遊び方をする
-        おーい磯野！
+        = DOMAIN_PREFIX
         %input.js-purpose{ type: :text }
         %a.btn.js-siyouze しようぜ！
 
     .content
       .twitter-frame
         %a.twitter-timeline{ href: "https://twitter.com/search?q=#{@purpose}", data: { widget: { id: 589305165729017857 } } }
-          = "おーい磯野！#{@purpose}しようぜ！に関するツイート"
+          = "#{@title}に関するツイート"
         :javascript
           !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");
 
 :javascript
   $('.js-siyouze').click(function() {
     var purpose = $('.js-purpose').val()
-    location.href = "http://おーい磯野."+ purpose +".lvh.me:4567/"
+    location.href = "http://おーい磯野."+ purpose +".しようぜ.jp/"
   })
