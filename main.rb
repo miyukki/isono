@@ -11,7 +11,7 @@ require 'rufus/scheduler'
 require_relative 'models/tweet'
 require_relative 'models/recreation'
 
-set :database, { adapter: 'sqlite3', database: 'database.sqlite3' }
+set :database, YAML.load_file('database.yml')
 
 DOMAIN_PREFIX = 'おーい磯野'
 
