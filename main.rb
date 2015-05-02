@@ -26,7 +26,7 @@ class Isono
   end
 
   def refresh_tweet!
-    recreation = Recreation.order('updated_at DESC').first
+    recreation = Recreation.order('updated_at ASC').first
     return if recreation.blank?
 
     recreation.touch
@@ -37,6 +37,7 @@ class Isono
   def search!(recreation, keyword)
     results = @client.search(keyword, result_type: 'recent')
     results.each do |status|
+      next if status.retweet?
       tweet = Tweet.find_or_initialize_by(tweet_id: status.id)
       tweet.update(recreation: recreation, tweet_id: status.id, screen_name: status.user.screen_name, text: status.text)
       tweet.save
@@ -63,7 +64,7 @@ class MainApp < Sinatra::Base
     end
 
     @recreation = Recreation.find_or_create_by(name: domain[1])
-    tweet_counts = Tweet.group(:recreation_id).order('count_id desc').count('id').select { |k, v| v != 0 }
+    tweet_counts = Tweet.group(:recreation_id).order('count_id DESC').count('id').select { |k, v| v != 0 }
     @popular_recreations = Recreation.where(id: tweet_counts.keys)
     @title = "#{DOMAIN_PREFIX}！#{@recreation.name}しようぜ！"
     haml :index
