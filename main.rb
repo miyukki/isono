@@ -69,4 +69,8 @@ class MainApp < Sinatra::Base
     @title = "#{DOMAIN_PREFIX}！#{@recreation.name}しようぜ！"
     haml :index
   end
+
+  after do
+    ActiveRecord::Base.connection.close
+  end
 end
