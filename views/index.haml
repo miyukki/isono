@@ -20,6 +20,7 @@
       body
         margin: 0
         font-size: $font_size
+        background-color: #F5F5F5
 
       .btn
         color: #222
@@ -41,6 +42,7 @@
         border-bottom: 1px solid #1B926C
 
         .inner
+          position: relative
           margin: 0 auto
           height: 300px
           width: 960px
@@ -50,6 +52,11 @@
           color: white
           text-align: center
           line-height: 300px
+
+        .share
+          position: absolute
+          left: 422px
+          top: 222px
 
       .nav
         $nav_height: 80px
@@ -83,13 +90,25 @@
 
       .content
         padding: 20px
+        background-color: white
 
         .twitter-frame
           text-align: center
+
+      .footer
+        margin-bottom: 30px
+        padding: 20px
+        border-top: 1px solid #EEE
+        text-align: center
+
   %body
     .top
       .inner
         %h1= @title
+        .share
+          %a.twitter-share-button{ href: 'https://twitter.com/share', data: { size: 'large', hashtags: 'isono' } }
+            = @title
+
     .nav
       .inner
         .hint
@@ -99,13 +118,23 @@
         %a.btn.js-siyouze しようぜ！
 
     .content
-      .twitter-frame
-        %a.twitter-timeline{ href: "https://twitter.com/search?q=#{@purpose}", data: { widget: { id: 589305165729017857 } } }
-          = "#{@title}に関するツイート"
-        :javascript
-          !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");
+      %h2 ツイート
+
+      %script{ async: :async, src: '//platform.twitter.com/widgets.js', charset: 'utf-8' }
+
+      - @recreation.tweets.each do |tweet|
+        %blockquote.twitter-tweet{ lang: 'ja', width: '300' }
+          %p{ lang: 'ja', dir: 'ltr' }= tweet.text
+          %a{ href: "https://twitter.com/i/status/#{tweet.tweet_id}" }
+
+    .footer
+      %h3 人気の遊び方
+
+      - @popular_recreations.each do |recreation|
+        %a{ href: "http://おーい磯野.#{recreation.name}.しようぜ.jp" }= "おーい磯野！#{recreation.name}しようぜ！"
 
 :javascript
+  !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");
   $('.js-siyouze').click(function() {
     var purpose = $('.js-purpose').val()
     location.href = "http://おーい磯野."+ purpose +".しようぜ.jp/"

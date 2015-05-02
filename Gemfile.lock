@@ -14,32 +14,54 @@ GEM
       minitest (~> 5.1)
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
+    addressable (2.3.8)
     arel (6.0.0)
     backports (3.6.4)
+    buftok (0.2.0)
     builder (3.2.2)
     coffee-script (2.3.0)
       coffee-script-source
       execjs
     coffee-script-source (1.9.1)
+    equalizer (0.0.11)
     execjs (2.4.0)
+    faraday (0.9.1)
+      multipart-post (>= 1.2, < 3)
     haml (4.0.6)
       tilt
+    http (0.6.4)
+      http_parser.rb (~> 0.6.0)
+    http_parser.rb (0.6.0)
     i18n (0.7.0)
     json (1.8.2)
+    kgio (2.9.2)
+    memoizable (0.4.2)
+      thread_safe (~> 0.3, >= 0.3.1)
     minitest (5.6.0)
     multi_json (1.11.0)
+    multipart-post (2.0.0)
     mysql2 (0.3.18)
+    naught (1.0.0)
     rack (1.6.0)
     rack-protection (1.5.3)
       rack
     rack-test (0.6.3)
       rack (>= 1.0)
+    raindrops (0.13.0)
+    rake (10.4.2)
+    rufus-scheduler (3.1.1)
     sass (3.4.13)
+    simple_oauth (0.3.1)
     simpleidn (0.0.5)
     sinatra (1.4.6)
       rack (~> 1.4)
       rack-protection (~> 1.4)
       tilt (>= 1.3, < 3)
+    sinatra-activerecord (2.0.6)
+      activerecord (>= 3.2)
+      sinatra (~> 1.0)
+    sinatra-config-file (1.0)
+      sinatra-contrib
     sinatra-contrib (1.4.2)
       backports (>= 2.0)
       multi_json
@@ -50,8 +72,23 @@ GEM
     sqlite3 (1.3.10)
     thread_safe (0.3.5)
     tilt (1.4.1)
+    twitter (5.14.0)
+      addressable (~> 2.3)
+      buftok (~> 0.2.0)
+      equalizer (~> 0.0.9)
+      faraday (~> 0.9.0)
+      http (~> 0.6.0)
+      http_parser.rb (~> 0.6.0)
+      json (~> 1.8)
+      memoizable (~> 0.4.0)
+      naught (~> 1.0)
+      simple_oauth (~> 0.3.0)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
+    unicorn (4.8.3)
+      kgio (~> 2.6)
+      rack
+      raindrops (~> 0.7)
 
 PLATFORMS
   ruby
@@ -61,8 +98,14 @@ DEPENDENCIES
   coffee-script
   haml
   mysql2
+  rake
+  rufus-scheduler
   sass
   simpleidn
   sinatra
+  sinatra-activerecord
+  sinatra-config-file
   sinatra-contrib
   sqlite3
+  twitter
+  unicorn
