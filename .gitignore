@@ -1,3 +1,4 @@
 .sass-cache
 *.sqlite3
 config.yml
+database.yml
